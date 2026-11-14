@@ -33,5 +33,12 @@
     "title": "Board columns follow the score ranking",
     "context": "A status workflow (New → Done) says nothing about what to build first.",
     "decision": "Rank themes by score: #1 goes to Now, #2–4 to Next, the rest and unclustered requests to Inbox. Columns are derived, not stored."
+  },
+  {
+    "id": "D-006",
+    "date": "2026-11-14",
+    "title": "Full requirement docs are Markdown files",
+    "context": "A requirement doc is long-form text (quotes, Given/When/Then, scope) that people review and edit as text, which is awkward in JSON.",
+    "decision": "Write full docs to data/requirements/<themeId>.md and render them on /requirement/[themeId] at build time. Themes without a doc fall back to the short notes in requirements.json."
   }
 ]

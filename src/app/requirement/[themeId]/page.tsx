@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Badge, { EffortBadge, PainBadge, channelTone } from "@/components/Badge";
 import Flags from "@/components/Flags";
+import Markdown from "@/components/Markdown";
 import { COLUMNS, getRequirement, getTheme, getThemes } from "@/lib/data";
+import { getRequirementDoc } from "@/lib/requirementDoc";
 
 type Props = { params: Promise<{ themeId: string }> };
 
@@ -40,12 +42,13 @@ export default async function RequirementPage({ params }: Props) {
   const theme = getTheme(themeId);
   if (!theme) notFound();
 
-  const requirement = getRequirement(theme.id);
+  const doc = await getRequirementDoc(theme.id);
+  const requirement = doc ? undefined : getRequirement(theme.id);
   const column = COLUMNS.find((c) => c.id === theme.column)?.label ?? theme.column;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_300px]">
-      <article className="rounded-lg border border-neutral-200 bg-white p-6 sm:p-8">
+      <article className="min-w-0 rounded-lg border border-neutral-200 bg-white p-6 sm:p-8">
         <Link href="/" className="text-xs text-neutral-500 hover:text-neutral-900">
           ← Board
         </Link>
@@ -74,7 +77,11 @@ export default async function RequirementPage({ params }: Props) {
           </div>
         </dl>
 
-        {requirement ? (
+        {doc ? (
+          <div className="mt-8">
+            <Markdown>{doc}</Markdown>
+          </div>
+        ) : requirement ? (
           <div className="mt-8 space-y-7">
             <section>
               <h2 className="text-sm font-semibold text-neutral-900">Problem</h2>

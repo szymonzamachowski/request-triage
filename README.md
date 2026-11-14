@@ -20,7 +20,8 @@ Built with Next.js 15 (App Router), TypeScript and Tailwind CSS. No database —
 - `data/requests.json` – 22 client requests from 6 fictional tour operators (Iceland, Italy, Australia, Greece, Czechia, UK)
 - `data/triage.json` – requests grouped into themes with `operatorsAsking`, `totalBookings`, pain, effort and `score`, plus `unclustered` one-offs. Source of truth for the board.
 - `data/PROMPT.md` – the exact prompt used to produce `triage.json`
-- `data/requirements.json` – requirement doc per theme
+- `data/requirements/<themeId>.md` – full requirement doc (problem with quotes, scope, Given/When/Then, DoD, success metric, open questions); currently for the top theme `guide-payouts`
+- `data/requirements.json` – short requirement notes for themes without a Markdown doc yet
 - `data/decisions.json` – decisions log shown on `/about`
 
 Score = `operatorsAsking × pain × log10(totalBookings) / effortWeight` (S=1, M=2, L=3).
