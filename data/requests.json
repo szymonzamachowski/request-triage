@@ -1,0 +1,10 @@
+[
+  { "id": "REQ-101", "title": "Export all project reports at once", "source": "support", "requester": "Acme Corp", "receivedAt": "2026-10-28", "priority": "high", "themeId": "bulk-export" },
+  { "id": "REQ-102", "title": "Need PDF export for multiple reports", "source": "sales", "requester": "Northwind", "receivedAt": "2026-10-30", "priority": "medium", "themeId": "bulk-export" },
+  { "id": "REQ-103", "title": "Okta login required for rollout", "source": "sales", "requester": "Globex", "receivedAt": "2026-11-02", "priority": "high", "themeId": "sso-login" },
+  { "id": "REQ-104", "title": "Azure AD support?", "source": "email", "requester": "Initech", "receivedAt": "2026-11-03", "priority": "high", "themeId": "sso-login" },
+  { "id": "REQ-105", "title": "Phone notifications when assigned a task", "source": "slack", "requester": "Internal – Field team", "receivedAt": "2026-11-05", "priority": "medium", "themeId": "mobile-notifications" },
+  { "id": "REQ-106", "title": "Who changed the admin role?", "source": "support", "requester": "Umbrella", "receivedAt": "2026-09-14", "priority": "medium", "themeId": "audit-log" },
+  { "id": "REQ-107", "title": "Dark mode for the dashboard", "source": "email", "requester": "Hooli", "receivedAt": "2026-11-09", "priority": "low", "themeId": null },
+  { "id": "REQ-108", "title": "Reports load slowly with many filters", "source": "support", "requester": "Acme Corp", "receivedAt": "2026-11-11", "priority": "medium", "themeId": null }
+]

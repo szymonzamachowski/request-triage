@@ -1,0 +1,81 @@
+[
+  {
+    "id": "bulk-export",
+    "name": "Bulk export of reports",
+    "summary": "Customers want to export many reports at once instead of one by one.",
+    "status": "in-spec",
+    "owner": "Product",
+    "requirement": {
+      "problem": "Users who manage many projects spend a lot of time exporting reports individually, which blocks month-end reporting.",
+      "goals": [
+        "Export up to 100 reports in a single action",
+        "Support CSV and PDF formats",
+        "Notify the user when a large export is ready"
+      ],
+      "acceptanceCriteria": [
+        "User can multi-select reports from the reports list",
+        "Export runs in the background and does not block the UI",
+        "User receives an email with a download link valid for 7 days"
+      ],
+      "openQuestions": [
+        "Should exports respect per-report permissions or the exporting user's role?"
+      ]
+    }
+  },
+  {
+    "id": "sso-login",
+    "name": "Single sign-on",
+    "summary": "Enterprise prospects require SAML/OIDC login before signing.",
+    "status": "triaged",
+    "owner": "Platform",
+    "requirement": {
+      "problem": "Enterprise customers cannot onboard without SSO, which blocks several deals in the pipeline.",
+      "goals": [
+        "Support SAML 2.0 and OIDC identity providers",
+        "Allow admins to enforce SSO for their workspace"
+      ],
+      "acceptanceCriteria": [
+        "Admin can configure an IdP from workspace settings",
+        "Users from an SSO-enforced workspace cannot log in with a password"
+      ],
+      "openQuestions": [
+        "Do we need SCIM provisioning in the first version?",
+        "Which plans include SSO?"
+      ]
+    }
+  },
+  {
+    "id": "mobile-notifications",
+    "name": "Mobile push notifications",
+    "summary": "Field users miss updates because notifications only arrive by email.",
+    "status": "new",
+    "owner": "Mobile",
+    "requirement": {
+      "problem": "Users working away from a desk see important updates hours late.",
+      "goals": ["Deliver push notifications for mentions and assignments"],
+      "acceptanceCriteria": [
+        "User can opt in and out of push notifications per category"
+      ],
+      "openQuestions": ["Is a quiet-hours setting needed for v1?"]
+    }
+  },
+  {
+    "id": "audit-log",
+    "name": "Audit log",
+    "summary": "Admins need a record of who changed what and when.",
+    "status": "done",
+    "owner": "Platform",
+    "requirement": {
+      "problem": "Compliance reviews require evidence of changes to permissions and settings.",
+      "goals": [
+        "Record permission and settings changes",
+        "Make the log searchable and exportable"
+      ],
+      "acceptanceCriteria": [
+        "Every permission change produces an audit entry with actor, target and timestamp",
+        "Admins can filter the log by user and date range"
+      ],
+      "openQuestions": []
+    }
+  }
+]

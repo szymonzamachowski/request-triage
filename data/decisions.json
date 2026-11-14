@@ -1,0 +1,23 @@
+[
+  {
+    "id": "D-001",
+    "date": "2026-11-14",
+    "title": "No database – data lives in JSON files",
+    "context": "The app is a prototype for exploring the triage workflow; persistence and multi-user editing are out of scope.",
+    "decision": "Store requests, themes and decisions in /data/*.json and read them at build/request time. Revisit once editing from the UI is needed."
+  },
+  {
+    "id": "D-002",
+    "date": "2026-11-14",
+    "title": "Requests are grouped into themes",
+    "context": "Many incoming requests describe the same underlying need in different words.",
+    "decision": "Each request points to at most one theme (themeId). A theme owns the requirement document and moves across the board."
+  },
+  {
+    "id": "D-003",
+    "date": "2026-11-14",
+    "title": "Next.js App Router with Server Components",
+    "context": "Pages are read-only views over static data.",
+    "decision": "Render pages as Server Components; only the navigation is a Client Component (for active-link state)."
+  }
+]
