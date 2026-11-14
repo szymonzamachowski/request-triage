@@ -6,7 +6,7 @@ export default function BoardPage() {
     <div>
       <h1 className="text-xl font-semibold tracking-tight">Board</h1>
       <p className="mt-1 text-sm text-neutral-500">
-        Themes ranked by score = operators asking × pain × log₁₀(bookings) ÷ effort.
+        Themes ranked by score = operators asking × pain × log₁₀(bookings) ÷ effort. Manual overrides are placed first.
       </p>
       <div className="mt-6">
         <Board columns={COLUMNS} themes={getThemes()} unclustered={getUnclustered()} />

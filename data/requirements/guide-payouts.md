@@ -2,7 +2,7 @@
 
 > **Fictional demo data.** The operators and quotes below come from the made-up requests in `data/requests.json`.
 
-Theme `guide-payouts` · rank #1 · score 22.42 · requests REQ-001, REQ-006, REQ-011, REQ-016
+Theme `guide-payouts` · #1 by score, placed in Next after a manual override · score 22.42 · requests REQ-001, REQ-006, REQ-011, REQ-016
 
 ## Problem
 

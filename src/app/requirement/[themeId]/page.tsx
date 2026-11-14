@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Badge, { EffortBadge, PainBadge, channelTone } from "@/components/Badge";
 import Flags from "@/components/Flags";
 import Markdown from "@/components/Markdown";
+import { FirstStep, OverrideBadge, OverrideReason } from "@/components/Override";
 import { COLUMNS, getRequirement, getTheme, getThemes } from "@/lib/data";
 import { getRequirementDoc } from "@/lib/requirementDoc";
 
@@ -55,12 +56,20 @@ export default async function RequirementPage({ params }: Props) {
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <h1 className="text-xl font-semibold tracking-tight">{theme.name}</h1>
           <Badge tone={theme.column === "now" ? "green" : theme.column === "next" ? "blue" : "neutral"}>{column}</Badge>
+          {theme.override && <OverrideBadge override={theme.override} />}
         </div>
         <p className="mt-1 text-sm text-neutral-500">
-          #{theme.rank} · score {theme.score.toFixed(2)} · {theme.operatorsAsking} operators{" "}
+          {theme.rankNote} · score {theme.score.toFixed(2)} · {theme.operatorsAsking} operators{" "}
           <Flags countries={theme.countries} />
           {requirement && <> · owner: {requirement.owner}</>}
         </p>
+
+        {(theme.override || theme.firstStep) && (
+          <div className="mt-5 space-y-2.5 rounded-md border border-orange-200 bg-orange-50/40 p-4">
+            {theme.override && <OverrideReason override={theme.override} className="text-sm" />}
+            {theme.firstStep && <FirstStep text={theme.firstStep} className="text-sm" />}
+          </div>
+        )}
 
         <dl className="mt-5 space-y-2 rounded-md bg-neutral-50 p-4 text-sm">
           <div className="flex gap-3">

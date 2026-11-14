@@ -24,7 +24,9 @@ A small tool that turns a pile of client requests into a ranked list of themes a
    score = operatorsAsking × pain × log10(totalBookings) / effortWeight   (S=1, M=2, L=3)
    ```
 
-4. **Prioritise.** The board shows theme #1 in **Now**, themes #2–4 in **Next**, and the rest plus unclustered requests in **Inbox**.
+4. **Prioritise.** Manual overrides go first: a product decision (`override` in `triage.json`) places a theme in a column regardless of its score, with a written reason and a first step. The remaining themes follow the score and fill **Now** (1 theme), **Next** (up to 3) and **Inbox**. Requests outside themes are routed to support, put on the backlog or left unclustered (`disposition`).
+
+   Current board: **Now** = Bokun sync (override, #2 by score), **Next** = Guide payouts (#1 by score, spec ready), VAT invoices and Pickup times, **Inbox** = everything else.
 5. **Specify.** The top theme gets a full requirement doc: problem with client quotes, who is affected, user story, scope in/out, Given/When/Then acceptance criteria, Definition of Done, a 30-day success metric and open questions for the client.
 
 ### Pages
@@ -45,7 +47,7 @@ A small tool that turns a pile of client requests into a ranked list of themes a
 | `data/PROMPT.md` | The exact prompt used to produce `triage.json` |
 | `data/requirements/<themeId>.md` | Full requirement doc (currently `guide-payouts`) |
 | `data/requirements.json` | Short notes for themes without a full doc |
-| `data/decisions.json` | Decisions log shown on `/about` |
+| `data/decisions.json` | Decisions log shown on `/about`: `product` (manual decisions) and `technical` |
 
 ## The prompt
 
@@ -61,6 +63,16 @@ Save to /data/triage.json, sorted by score. Also save the exact prompt you used 
 ```
 
 ## Decisions log
+
+### My product decisions
+
+Made by Szymon as manual overrides on top of the score. The formula and the data stay as they are.
+
+1. **Bokun sync moved to Now despite rank #2.** Overbookings, refunds and duplicate bookings hurt the operators' own guests and cost them money right now. The score ranks it #2 only because effort is L, and it doesn't capture that kind of risk. **First step:** a quick fix this week to stop duplicate bookings from re-delivered Bokun webhooks (REQ-021), then the full sync work. Guide payouts (#1 by score, spec ready) is next up.
+2. **REQ-019 excluded from triage.** It's a support case (account recovery), not a product need. It is shown as "Routed to support – not a product need".
+3. **Japanese localisation goes to the backlog with low priority.** One request isn't enough evidence, but it's a signal worth tracking. REQ-012 is shown as "Backlog · low priority", to revisit if more operators ask.
+
+### Technical decisions (prototype)
 
 1. **No database. Data lives in JSON and Markdown files.** This is a prototype of the workflow. Everything in `/data` is read at build time and every page is prerendered as static HTML.
 2. **Requests are grouped by meaning with an LLM, and the result is kept as a file.** Clients describe the same need in different words, so keyword matching misses the overlap. `triage.json` is the single source of truth, and raw requests are never edited.
@@ -78,6 +90,8 @@ Save to /data/triage.json, sorted by score. Also save the exact prompt you used 
 - Country flags are emoji, so Windows shows them as letter codes.
 
 ## Tech
+
+Built by Szymon Zamachowski · [GitHub](https://github.com/szymonzamachowski/request-triage) · [LinkedIn](https://www.linkedin.com/in/szymon-zamachowski)
 
 Next.js 15 (App Router, Server Components), TypeScript, Tailwind CSS v4, react-markdown. Deployed on Vercel.
 

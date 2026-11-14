@@ -66,7 +66,13 @@
         "value": "L",
         "reason": "Fixing it needs idempotent webhook handling, near-real-time availability sync and automatic product updates against a third-party API."
       },
-      "score": 16.32
+      "score": 16.32,
+      "override": {
+        "column": "now",
+        "by": "Szymon",
+        "reason": "Overbookings, refunds and duplicate bookings hurt the operators' own guests and cost them money right now. The score ranks it #2 only because effort is L – it doesn't capture that kind of risk."
+      },
+      "firstStep": "Quick fix this week: stop duplicate bookings from re-delivered Bokun webhooks (REQ-021). Then the full sync work."
     },
     {
       "id": "vat-invoices",
@@ -176,13 +182,24 @@
       "id": "REQ-012",
       "operator": "Outback Loop Adventures",
       "text": "Could you add Japanese to the booking widget? We're seeing a lot more guests from Japan this season.",
-      "reason": "Feature request for Japanese language in the booking widget; no other operator asked for localisation."
+      "reason": "Feature request for Japanese language in the booking widget; no other operator asked for localisation.",
+      "disposition": {
+        "type": "backlog",
+        "label": "Backlog · low priority",
+        "by": "Szymon",
+        "reason": "Only one request so far – kept as a signal to watch; revisit if more operators ask."
+      }
     },
     {
       "id": "REQ-019",
       "operator": "Aegean Island Hoppers",
       "text": "Our office laptop died and nobody remembers which email address the main account was registered with. Can you help us get back in?",
-      "reason": "One-off account recovery support case, not a product need."
+      "reason": "One-off account recovery support case, not a product need.",
+      "disposition": {
+        "type": "support",
+        "label": "Routed to support – not a product need",
+        "by": "Szymon"
+      }
     },
     {
       "id": "REQ-022",

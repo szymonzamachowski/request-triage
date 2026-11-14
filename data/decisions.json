@@ -1,37 +1,65 @@
-[
-  {
-    "id": "D-001",
-    "date": "2026-11-14",
-    "title": "No database: data lives in JSON and Markdown files",
-    "context": "This is a prototype of the triage workflow. Saving changes and letting several people edit are out of scope.",
-    "decision": "Requests, triage output, requirements and decisions are files in /data, read at build time. Every page is prerendered as static HTML. We revisit this when the UI needs editing."
-  },
-  {
-    "id": "D-002",
-    "date": "2026-11-14",
-    "title": "Group requests by meaning with an LLM, and keep the result as a file",
-    "context": "Clients describe the same need in different words, so grouping by keywords misses most of the overlap.",
-    "decision": "An LLM grouped the requests into themes and rated pain and effort, using the prompt in data/PROMPT.md. The result is saved in data/triage.json, which is the single source of truth for themes. Raw requests are never edited."
-  },
-  {
-    "id": "D-003",
-    "date": "2026-11-14",
-    "title": "Rank by a transparent score, not by request count",
-    "context": "A loud operator sending many tickets shouldn't outrank a need shared by many operators, and one very large operator shouldn't dominate either.",
-    "decision": "score = operatorsAsking × pain × log10(totalBookings) ÷ effortWeight (S=1, M=2, L=3). Each operator is counted once per theme. log10 dampens the effect of operator size. Arithmetic is done by code, judgments by the model."
-  },
-  {
-    "id": "D-004",
-    "date": "2026-11-14",
-    "title": "Board columns are derived from the ranking",
-    "context": "A status workflow (New → Done) doesn't say what to build first.",
-    "decision": "#1 goes to Now, #2–4 go to Next, and the rest plus unclustered requests go to Inbox. Columns are computed from triage.json, not stored."
-  },
-  {
-    "id": "D-005",
-    "date": "2026-11-14",
-    "title": "Full requirement docs are Markdown files",
-    "context": "A requirement doc is long text (quotes, scope, Given/When/Then) that people review and edit as text.",
-    "decision": "The top theme has a full doc in data/requirements/<themeId>.md, rendered on /requirement/[themeId]. The other themes fall back to the short notes in requirements.json."
-  }
-]
+{
+  "product": [
+    {
+      "id": "P-001",
+      "date": "2026-11-14",
+      "author": "Szymon",
+      "title": "Bokun sync moved to Now despite rank #2",
+      "context": "Overbookings, refunds and duplicate bookings hurt the operators' own guests and cost them money right now. The score ranks it #2 only because effort is L – it doesn't capture that kind of risk.",
+      "decision": "Manual override: Bokun sync reliability goes to Now. First step: quick fix this week – stop duplicate bookings from re-delivered Bokun webhooks (REQ-021). Then the full sync work. Guide payouts (#1 by score, spec ready) is next up."
+    },
+    {
+      "id": "P-002",
+      "date": "2026-11-14",
+      "author": "Szymon",
+      "title": "REQ-019 excluded from triage",
+      "context": "It's a support case (account recovery), not a product need.",
+      "decision": "Routed to support and marked \"Routed to support – not a product need\" instead of unclustered."
+    },
+    {
+      "id": "P-003",
+      "date": "2026-11-14",
+      "author": "Szymon",
+      "title": "Japanese localisation goes to the backlog with low priority",
+      "context": "One request isn't enough evidence, but it's a signal worth tracking.",
+      "decision": "REQ-012 is marked \"Backlog · low priority\". Revisit if more operators ask."
+    }
+  ],
+  "technical": [
+    {
+      "id": "D-001",
+      "date": "2026-11-14",
+      "title": "No database: data lives in JSON and Markdown files",
+      "context": "This is a prototype of the triage workflow. Saving changes and letting several people edit are out of scope.",
+      "decision": "Requests, triage output, requirements and decisions are files in /data, read at build time. Every page is prerendered as static HTML. We revisit this when the UI needs editing."
+    },
+    {
+      "id": "D-002",
+      "date": "2026-11-14",
+      "title": "Group requests by meaning with an LLM, and keep the result as a file",
+      "context": "Clients describe the same need in different words, so grouping by keywords misses most of the overlap.",
+      "decision": "An LLM grouped the requests into themes and rated pain and effort, using the prompt in data/PROMPT.md. The result is saved in data/triage.json, which is the single source of truth for themes. Raw requests are never edited."
+    },
+    {
+      "id": "D-003",
+      "date": "2026-11-14",
+      "title": "Rank by a transparent score, not by request count",
+      "context": "A loud operator sending many tickets shouldn't outrank a need shared by many operators, and one very large operator shouldn't dominate either.",
+      "decision": "score = operatorsAsking × pain × log10(totalBookings) ÷ effortWeight (S=1, M=2, L=3). Each operator is counted once per theme. log10 dampens the effect of operator size. Arithmetic is done by code, judgments by the model."
+    },
+    {
+      "id": "D-004",
+      "date": "2026-11-14",
+      "title": "Board columns are derived from the ranking",
+      "context": "A status workflow (New → Done) doesn't say what to build first.",
+      "decision": "#1 goes to Now, #2–4 go to Next, and the rest plus unclustered requests go to Inbox. Columns are computed from triage.json, not stored."
+    },
+    {
+      "id": "D-005",
+      "date": "2026-11-14",
+      "title": "Full requirement docs are Markdown files",
+      "context": "A requirement doc is long text (quotes, scope, Given/When/Then) that people review and edit as text.",
+      "decision": "The top theme has a full doc in data/requirements/<themeId>.md, rendered on /requirement/[themeId]. The other themes fall back to the short notes in requirements.json."
+    }
+  ]
+}

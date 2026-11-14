@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import Badge, { channelTone } from "@/components/Badge";
+import DispositionLabel from "@/components/Disposition";
 import Flags from "@/components/Flags";
-import type { Request } from "@/lib/types";
+import type { Disposition, Request } from "@/lib/types";
 
-export type RequestRow = Request & { theme: { id: string; name: string } | null };
+export type RequestRow = Request & { theme: { id: string; name: string } | null; disposition?: Disposition };
 
 type SortKey = "id" | "operator" | "operatorSize" | "channel" | "theme" | "date";
 type Dir = "asc" | "desc";
@@ -34,8 +35,9 @@ export default function RequestsTable({ rows }: { rows: RequestRow[] }) {
     return [...rows].sort((a, b) => {
       const va = value(a, sort.key);
       const vb = value(b, sort.key);
-      // Rows without a value (unclustered) always go last.
-      if (va === null && vb === null) return a.id.localeCompare(b.id);
+      // Rows without a theme always go last, grouped by their label.
+      if (va === null && vb === null)
+        return (a.disposition?.label ?? "~").localeCompare(b.disposition?.label ?? "~") || a.id.localeCompare(b.id);
       if (va === null) return 1;
       if (vb === null) return -1;
       const cmp = typeof va === "number" && typeof vb === "number" ? va - vb : String(va).localeCompare(String(vb));
@@ -99,13 +101,13 @@ export default function RequestsTable({ rows }: { rows: RequestRow[] }) {
               <td className="px-4 py-3">
                 <Badge tone={channelTone[r.channel]}>{r.channel}</Badge>
               </td>
-              <td className="whitespace-nowrap px-4 py-3">
+              <td className="min-w-40 px-4 py-3">
                 {r.theme ? (
                   <Link href={`/requirement/${r.theme.id}`} className="text-neutral-900 underline-offset-2 hover:underline">
                     {r.theme.name}
                   </Link>
                 ) : (
-                  <span className="text-neutral-400">Unclustered</span>
+                  <DispositionLabel disposition={r.disposition} />
                 )}
               </td>
               <td className="whitespace-nowrap px-4 py-3 tabular-nums text-neutral-500">{r.date}</td>

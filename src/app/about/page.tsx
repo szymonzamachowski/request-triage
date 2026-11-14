@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getDecisions } from "@/lib/data";
 import { getTriagePrompt } from "@/lib/prompt";
+import type { Decision } from "@/lib/types";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -22,7 +23,7 @@ const steps = [
   },
   {
     title: "Prioritise",
-    text: "The board puts theme #1 in Now, themes #2–4 in Next, and the rest plus unclustered requests in Inbox.",
+    text: "Manual overrides go first: a product decision can place a theme in a column regardless of its score, with a written reason and a first step. The remaining themes follow the score and fill Now (1 theme), Next (up to 3) and Inbox. Requests outside themes are routed to support, put on the backlog or left unclustered.",
   },
   {
     title: "Specify",
@@ -38,6 +39,36 @@ const limitations = [
   "No accounts or permissions. Everything is public.",
   "Country flags are emoji, so Windows shows them as letter codes (e.g. IS, GB).",
 ];
+
+function DecisionList({ title, subtitle, decisions }: { title: string; subtitle: string; decisions: Decision[] }) {
+  return (
+    <section className="mt-6">
+      <h3 className="text-sm font-semibold text-neutral-900">{title}</h3>
+      <p className="mt-0.5 text-xs text-neutral-500">{subtitle}</p>
+      <ul className="mt-3 divide-y divide-neutral-200 rounded-lg border border-neutral-200 bg-white">
+        {decisions.map((d) => (
+          <li key={d.id} className="p-4">
+            <p className="text-sm font-medium text-neutral-900">
+              <span className="mr-2 font-mono text-xs text-neutral-400">{d.id}</span>
+              {d.title}
+              {d.author && <span className="ml-2 text-xs font-normal text-neutral-500">— {d.author}</span>}
+            </p>
+            <dl className="mt-2 space-y-1 text-sm leading-relaxed">
+              <div>
+                <dt className="inline font-medium text-neutral-700">Why: </dt>
+                <dd className="inline text-neutral-600">{d.context}</dd>
+              </div>
+              <div>
+                <dt className="inline font-medium text-neutral-700">Decision: </dt>
+                <dd className="inline text-neutral-600">{d.decision}</dd>
+              </div>
+            </dl>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
 
 function H2({ id, children }: { id: string; children: React.ReactNode }) {
   return (
@@ -112,26 +143,16 @@ export default async function AboutPage() {
       </p>
 
       <H2 id="decisions">Decisions log</H2>
-      <ul className="mt-4 divide-y divide-neutral-200 rounded-lg border border-neutral-200 bg-white">
-        {decisions.map((d) => (
-          <li key={d.id} className="p-4">
-            <p className="text-sm font-medium text-neutral-900">
-              <span className="mr-2 font-mono text-xs text-neutral-400">{d.id}</span>
-              {d.title}
-            </p>
-            <dl className="mt-2 space-y-1 text-sm leading-relaxed">
-              <div>
-                <dt className="inline font-medium text-neutral-700">Why: </dt>
-                <dd className="inline text-neutral-600">{d.context}</dd>
-              </div>
-              <div>
-                <dt className="inline font-medium text-neutral-700">Decision: </dt>
-                <dd className="inline text-neutral-600">{d.decision}</dd>
-              </div>
-            </dl>
-          </li>
-        ))}
-      </ul>
+      <DecisionList
+        title="My product decisions"
+        subtitle="Manual calls made on top of the score, by Szymon."
+        decisions={decisions.product}
+      />
+      <DecisionList
+        title="Technical decisions (prototype)"
+        subtitle="How the prototype is built."
+        decisions={decisions.technical}
+      />
 
       <H2 id="limitations">Limitations</H2>
       <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-neutral-700">

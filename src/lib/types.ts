@@ -24,6 +24,16 @@ export interface TriageTheme {
   pain: { value: 1 | 2 | 3; reason: string };
   effort: { value: Effort; reason: string };
   score: number;
+  /** Manual product decision that places the theme in a column regardless of score. */
+  override?: { column: Column; by: string; reason: string };
+  firstStep?: string;
+}
+
+export interface Disposition {
+  type: "support" | "backlog";
+  label: string;
+  by: string;
+  reason?: string;
 }
 
 export interface UnclusteredRequest {
@@ -31,6 +41,7 @@ export interface UnclusteredRequest {
   operator: string;
   text: string;
   reason: string;
+  disposition?: Disposition;
 }
 
 export interface Requirement {
@@ -44,6 +55,7 @@ export interface Requirement {
 
 export interface Decision {
   id: string;
+  author?: string;
   date: string;
   title: string;
   context: string;
@@ -52,8 +64,12 @@ export interface Decision {
 
 /** A theme enriched with its requests, ready for the UI. */
 export interface ThemeView extends TriageTheme {
+  /** Rank by score (1 = highest), regardless of overrides. */
   rank: number;
   column: Column;
+  /** e.g. "#1 by score · spec ready, next up" */
+  rankNote: string;
+  hasSpec: boolean;
   countries: string[];
   requests: Request[];
 }
