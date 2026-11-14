@@ -4,10 +4,10 @@ import { getDecisions } from "@/lib/data";
 export const metadata: Metadata = { title: "About" };
 
 const steps = [
-  { title: "Collect", text: "Requests arrive from support, sales, email and Slack and land in the inbox." },
-  { title: "Group", text: "Similar requests are linked to a shared theme describing the underlying need." },
-  { title: "Specify", text: "Each theme gets a requirement doc: problem, goals, acceptance criteria and open questions." },
-  { title: "Track", text: "Themes move across the board from New to Done." },
+  { title: "Collect", text: "Client requests arrive by call, ticket and email from tour operators." },
+  { title: "Group", text: "Requests are grouped into themes by meaning, not keywords. One-offs stay unclustered." },
+  { title: "Score", text: "Score = operators asking × pain × log₁₀(total bookings) ÷ effort (S=1, M=2, L=3)." },
+  { title: "Prioritise", text: "The top theme goes to Now, themes 2–4 to Next, the rest to Inbox. Each theme has a requirement doc." },
 ];
 
 export default function AboutPage() {

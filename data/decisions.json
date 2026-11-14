@@ -4,21 +4,21 @@
     "date": "2026-11-14",
     "title": "No database – data lives in JSON files",
     "context": "The app is a prototype for exploring the triage workflow; persistence and multi-user editing are out of scope.",
-    "decision": "Store requests, themes and decisions in /data/*.json and read them at build time. Revisit once editing from the UI is needed."
+    "decision": "Store requests, triage output, requirements and decisions in /data/*.json and read them at build time. Revisit once editing from the UI is needed."
   },
   {
     "id": "D-002",
     "date": "2026-11-14",
-    "title": "Themes reference requests, not the other way round",
-    "context": "Many incoming requests describe the same underlying need in different words, and raw requests should stay exactly as the client sent them.",
-    "decision": "Each theme lists its requestIds. Requests not listed by any theme are shown as untriaged. A theme owns the requirement doc and moves across the board."
+    "title": "triage.json is the source of truth for themes",
+    "context": "Many incoming requests describe the same need in different words, and raw requests should stay exactly as the client sent them.",
+    "decision": "Themes, their requestIds and scores live in triage.json. requirements.json only holds the requirement doc per theme. Requests not in any theme are listed as unclustered."
   },
   {
     "id": "D-003",
     "date": "2026-11-14",
     "title": "Next.js App Router with Server Components",
     "context": "Pages are read-only views over static data.",
-    "decision": "Render pages as Server Components; only the navigation is a Client Component (for active-link state)."
+    "decision": "Render pages as Server Components and prerender them statically. Only the nav, the board (card selection) and the requests table (sorting) are Client Components."
   },
   {
     "id": "D-004",
@@ -26,5 +26,12 @@
     "title": "Fictional tour-operator demo data",
     "context": "Real client requests cannot be published in a public repository.",
     "decision": "Use 22 made-up requests from 6 fictional tour operators, marked as fictional in the JSON files and in a banner on every page."
+  },
+  {
+    "id": "D-005",
+    "date": "2026-11-14",
+    "title": "Board columns follow the score ranking",
+    "context": "A status workflow (New → Done) says nothing about what to build first.",
+    "decision": "Rank themes by score: #1 goes to Now, #2–4 to Next, the rest and unclustered requests to Inbox. Columns are derived, not stored."
   }
 ]

@@ -1,0 +1,108 @@
+{
+  "notice": "FICTIONAL DEMO DATA. Requirement docs for the themes in triage.json.",
+  "requirements": [
+    {
+      "themeId": "guide-payouts",
+      "owner": "Payments",
+      "problem": "Operators calculate guide pay in spreadsheets from tour lists, per-tour or per-guest rates and tips. It takes days every month and causes disputes with freelance guides.",
+      "goals": [
+        "Show the amount owed to each guide for a chosen period",
+        "Support per-tour, per-guest and hourly rates",
+        "Include tips and split them between guide and driver"
+      ],
+      "acceptanceCriteria": [
+        "Admin can open a payout summary per guide for any date range",
+        "Summary lists each tour, the rate applied and the total",
+        "Admin can send a guide their summary by email before they invoice"
+      ],
+      "openQuestions": [
+        "How are tips split when several staff work one departure?",
+        "Do we need to export payouts to accounting software in v1?"
+      ]
+    },
+    {
+      "themeId": "bokun-sync",
+      "owner": "Integrations",
+      "problem": "Delays, duplicates and missing product changes in the Bokun integration lead to overbookings, refunds and manual clean-up.",
+      "goals": [
+        "Keep availability in sync within minutes",
+        "Never create duplicate bookings",
+        "Pick up product changes without manual re-import"
+      ],
+      "acceptanceCriteria": [
+        "A booking made in Bokun appears within 5 minutes with the correct participant count",
+        "Re-delivered webhooks do not create a second booking",
+        "New departure times created in Bokun appear automatically"
+      ],
+      "openQuestions": [
+        "Should operators be alerted when the sync fails?"
+      ]
+    },
+    {
+      "themeId": "pickup-times",
+      "owner": "Operations",
+      "problem": "Confirmations show only the tour start time, so guests do not know when to wait at their hotel and drivers have no pickup list.",
+      "goals": [
+        "Show the per-hotel pickup time in confirmations",
+        "Let operators shift pickup times for a whole departure",
+        "Give drivers a pickup list per vehicle"
+      ],
+      "acceptanceCriteria": [
+        "Confirmation email contains the pickup point and time",
+        "Changing a departure's pickup time notifies all guests on it",
+        "Pickup list can be printed per vehicle, sorted by time"
+      ],
+      "openQuestions": [
+        "SMS or email for last-minute time changes?"
+      ]
+    },
+    {
+      "themeId": "group-bookings",
+      "owner": "Bookings",
+      "problem": "Schools, cruise groups and agencies book 10–50 seats at once, but each seat is handled as a separate booking with manual discounts.",
+      "goals": [
+        "Create one booking for a whole group",
+        "Hold seats for agencies and release unused ones",
+        "Apply group discounts automatically"
+      ],
+      "acceptanceCriteria": [
+        "Headcount of a group booking can be edited in one place",
+        "Held seats are released automatically at a set number of days before departure"
+      ],
+      "openQuestions": [
+        "Do held seats count as sold for OTA availability?"
+      ]
+    },
+    {
+      "themeId": "vat-invoices",
+      "owner": "Finance",
+      "problem": "Operators recreate invoices manually because the system cannot add the client's company details or show different VAT rates per line.",
+      "goals": [
+        "Add company name and VAT ID to invoices",
+        "Show VAT rates per line item"
+      ],
+      "acceptanceCriteria": [
+        "Customer can enter company details at checkout",
+        "Invoice PDF lists net, VAT rate and gross per line"
+      ],
+      "openQuestions": [
+        "Which countries' invoice rules do we support first?"
+      ]
+    },
+    {
+      "themeId": "waitlist",
+      "owner": "Bookings",
+      "problem": "When tours sell out, operators collect interested customers by email and contact them by hand after cancellations.",
+      "goals": [
+        "Let customers join a waitlist for sold-out departures"
+      ],
+      "acceptanceCriteria": [
+        "Sold-out departure offers a waitlist sign-up",
+        "On cancellation, the first person on the waitlist is notified automatically"
+      ],
+      "openQuestions": [
+        "Should the freed spot be held for the notified person, and for how long?"
+      ]
+    }
+  ]
+}

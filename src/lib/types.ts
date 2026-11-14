@@ -1,22 +1,6 @@
-export type ThemeStatus = "new" | "triaged" | "in-spec" | "done";
 export type Channel = "call" | "ticket" | "email";
-
-export interface Requirement {
-  problem: string;
-  goals: string[];
-  acceptanceCriteria: string[];
-  openQuestions: string[];
-}
-
-export interface Theme {
-  id: string;
-  name: string;
-  summary: string;
-  status: ThemeStatus;
-  owner: string;
-  requestIds: string[];
-  requirement: Requirement;
-}
+export type Effort = "S" | "M" | "L";
+export type Column = "now" | "next" | "inbox";
 
 export interface Request {
   id: string;
@@ -29,10 +13,47 @@ export interface Request {
   text: string;
 }
 
+export interface TriageTheme {
+  id: string;
+  name: string;
+  problem: string;
+  requestIds: string[];
+  operatorsAsking: number;
+  operators: string[];
+  totalBookings: number;
+  pain: { value: 1 | 2 | 3; reason: string };
+  effort: { value: Effort; reason: string };
+  score: number;
+}
+
+export interface UnclusteredRequest {
+  id: string;
+  operator: string;
+  text: string;
+  reason: string;
+}
+
+export interface Requirement {
+  themeId: string;
+  owner: string;
+  problem: string;
+  goals: string[];
+  acceptanceCriteria: string[];
+  openQuestions: string[];
+}
+
 export interface Decision {
   id: string;
   date: string;
   title: string;
   context: string;
   decision: string;
+}
+
+/** A theme enriched with its requests, ready for the UI. */
+export interface ThemeView extends TriageTheme {
+  rank: number;
+  column: Column;
+  countries: string[];
+  requests: Request[];
 }
