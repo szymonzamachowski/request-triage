@@ -1,0 +1,194 @@
+{
+  "notice": "FICTIONAL DEMO DATA. Derived from the fictional requests in requests.json.",
+  "generatedAt": "2026-11-14",
+  "method": "Requests grouped by meaning (not keywords) by an LLM, using the prompt in PROMPT.md.",
+  "scoring": {
+    "formula": "score = operatorsAsking * pain * log10(totalBookings) / effortWeight",
+    "effortWeight": {
+      "S": 1,
+      "M": 2,
+      "L": 3
+    },
+    "totalBookings": "Sum of operatorSize (bookings per month) over the distinct operators asking; an operator is counted once per theme."
+  },
+  "themes": [
+    {
+      "id": "guide-payouts",
+      "name": "Guide payouts",
+      "problem": "Operators can't see what each guide is owed for a period, so they rebuild payouts in spreadsheets every month.",
+      "requestIds": [
+        "REQ-001",
+        "REQ-006",
+        "REQ-011",
+        "REQ-016"
+      ],
+      "operatorsAsking": 4,
+      "operators": [
+        "Northern Trails Iceland",
+        "Outback Loop Adventures",
+        "Bohemia Walks",
+        "Highland & Thames Tours"
+      ],
+      "totalBookings": 5450,
+      "pain": {
+        "value": 3,
+        "reason": "It costs owners days of manual work every month and causes disagreements with freelance guides over pay."
+      },
+      "effort": {
+        "value": "M",
+        "reason": "Tours and staff assignments already exist; the work is rate rules (per tour, per guest, hourly), tips and a per-guide summary."
+      },
+      "score": 22.42
+    },
+    {
+      "id": "bokun-sync",
+      "name": "Bokun sync reliability",
+      "problem": "Bookings and availability from Bokun arrive late, duplicated or out of date, causing overbookings and manual clean-up.",
+      "requestIds": [
+        "REQ-002",
+        "REQ-007",
+        "REQ-015",
+        "REQ-021"
+      ],
+      "operatorsAsking": 4,
+      "operators": [
+        "Dolce Vita Tours",
+        "Aegean Island Hoppers",
+        "Northern Trails Iceland",
+        "Highland & Thames Tours"
+      ],
+      "totalBookings": 12000,
+      "pain": {
+        "value": 3,
+        "reason": "It directly causes overbooked tours, refunds and wrong headcounts at the meeting point."
+      },
+      "effort": {
+        "value": "L",
+        "reason": "Fixing it needs idempotent webhook handling, near-real-time availability sync and automatic product updates against a third-party API."
+      },
+      "score": 16.32
+    },
+    {
+      "id": "vat-invoices",
+      "name": "VAT invoices",
+      "problem": "Invoices can't include the client's company details or per-line VAT rates, so operators recreate them by hand.",
+      "requestIds": [
+        "REQ-005",
+        "REQ-013",
+        "REQ-020"
+      ],
+      "operatorsAsking": 3,
+      "operators": [
+        "Highland & Thames Tours",
+        "Aegean Island Hoppers",
+        "Dolce Vita Tours"
+      ],
+      "totalBookings": 10200,
+      "pain": {
+        "value": 2,
+        "reason": "Operators have a manual workaround, but it is slow and accountants reject non-compliant invoices."
+      },
+      "effort": {
+        "value": "M",
+        "reason": "Needs company/VAT ID fields at checkout and per-line VAT rates on the invoice, with rules differing by country."
+      },
+      "score": 12.03
+    },
+    {
+      "id": "pickup-times",
+      "name": "Pickup times",
+      "problem": "Guests and drivers don't get clear per-hotel pickup times, and changing them for a departure is manual.",
+      "requestIds": [
+        "REQ-004",
+        "REQ-008",
+        "REQ-014"
+      ],
+      "operatorsAsking": 3,
+      "operators": [
+        "Bohemia Walks",
+        "Northern Trails Iceland",
+        "Dolce Vita Tours"
+      ],
+      "totalBookings": 5350,
+      "pain": {
+        "value": 2,
+        "reason": "It creates a steady stream of guest questions and driver confusion, but rarely loses a booking."
+      },
+      "effort": {
+        "value": "M",
+        "reason": "Requires pickup points with times per departure, bulk time changes with notifications and a printable list per vehicle."
+      },
+      "score": 11.19
+    },
+    {
+      "id": "group-bookings",
+      "name": "Group bookings",
+      "problem": "Large groups and agency allotments must be entered as many single bookings with manual discounts.",
+      "requestIds": [
+        "REQ-003",
+        "REQ-010",
+        "REQ-017"
+      ],
+      "operatorsAsking": 3,
+      "operators": [
+        "Aegean Island Hoppers",
+        "Highland & Thames Tours",
+        "Outback Loop Adventures"
+      ],
+      "totalBookings": 7900,
+      "pain": {
+        "value": 2,
+        "reason": "Headcount changes and forgotten discounts are tedious and error-prone, though operators can cope manually."
+      },
+      "effort": {
+        "value": "L",
+        "reason": "It changes the booking model: one booking for many seats, held allotments with automatic release and group pricing rules."
+      },
+      "score": 7.8
+    },
+    {
+      "id": "waitlist",
+      "name": "Waitlist",
+      "problem": "Customers can't join a waiting list for sold-out departures, so operators track interest by email.",
+      "requestIds": [
+        "REQ-009",
+        "REQ-018"
+      ],
+      "operatorsAsking": 2,
+      "operators": [
+        "Dolce Vita Tours",
+        "Bohemia Walks"
+      ],
+      "totalBookings": 3550,
+      "pain": {
+        "value": 1,
+        "reason": "It is missed upsell and some inbox work rather than a failure of the core booking flow."
+      },
+      "effort": {
+        "value": "S",
+        "reason": "A sign-up on sold-out departures plus a notification on cancellation fits the existing booking and email flow."
+      },
+      "score": 7.1
+    }
+  ],
+  "unclustered": [
+    {
+      "id": "REQ-012",
+      "operator": "Outback Loop Adventures",
+      "text": "Could you add Japanese to the booking widget? We're seeing a lot more guests from Japan this season.",
+      "reason": "Feature request for Japanese language in the booking widget; no other operator asked for localisation."
+    },
+    {
+      "id": "REQ-019",
+      "operator": "Aegean Island Hoppers",
+      "text": "Our office laptop died and nobody remembers which email address the main account was registered with. Can you help us get back in?",
+      "reason": "One-off account recovery support case, not a product need."
+    },
+    {
+      "id": "REQ-022",
+      "operator": "Northern Trails Iceland",
+      "text": "Is there a way to export the emails of customers who agreed to marketing? We want to send a winter newsletter.",
+      "reason": "Marketing consent export for a newsletter; single request, unrelated to the other themes."
+    }
+  ]
+}
