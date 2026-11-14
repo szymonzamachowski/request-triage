@@ -15,8 +15,10 @@ Built with Next.js 15 (App Router), TypeScript and Tailwind CSS. No database —
 
 ## Data
 
-- `data/requests.json` – incoming requests (`themeId` links a request to a theme, `null` = untriaged)
-- `data/themes.json` – themes with status and requirement content
+> **All data in this repo is fictional demo data.** Operators and requests are made up.
+
+- `data/requests.json` – 22 client requests from 6 fictional tour operators (Iceland, Italy, Australia, Greece, Czechia, UK)
+- `data/themes.json` – themes (guide payouts, Bokun sync, pickup times, group bookings, VAT invoices, waitlist) with status, linked `requestIds` and requirement content; requests not linked to any theme are untriaged
 - `data/decisions.json` – decisions log shown on `/about`
 
 ## Development

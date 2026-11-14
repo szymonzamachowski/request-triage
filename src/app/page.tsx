@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Badge from "@/components/Badge";
-import { STATUSES, getRequestsForTheme, getThemes } from "@/lib/data";
+import { STATUSES, getThemes } from "@/lib/data";
 
 export default function BoardPage() {
   const themes = getThemes();
@@ -21,7 +21,7 @@ export default function BoardPage() {
               </h2>
               <ul className="space-y-2">
                 {column.map((theme) => {
-                  const count = getRequestsForTheme(theme.id).length;
+                  const count = theme.requestIds.length;
                   return (
                     <li key={theme.id}>
                       <Link

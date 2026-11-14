@@ -1,6 +1,5 @@
 export type ThemeStatus = "new" | "triaged" | "in-spec" | "done";
-export type Priority = "low" | "medium" | "high";
-export type Source = "email" | "slack" | "support" | "sales";
+export type Channel = "call" | "ticket" | "email";
 
 export interface Requirement {
   problem: string;
@@ -15,17 +14,19 @@ export interface Theme {
   summary: string;
   status: ThemeStatus;
   owner: string;
+  requestIds: string[];
   requirement: Requirement;
 }
 
 export interface Request {
   id: string;
-  title: string;
-  source: Source;
-  requester: string;
-  receivedAt: string;
-  priority: Priority;
-  themeId: string | null;
+  operator: string;
+  country: string;
+  /** Bookings per month */
+  operatorSize: number;
+  channel: Channel;
+  date: string;
+  text: string;
 }
 
 export interface Decision {

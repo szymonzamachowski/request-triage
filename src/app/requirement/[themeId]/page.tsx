@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Badge, { priorityTone, statusTone } from "@/components/Badge";
+import Badge, { channelTone, statusTone } from "@/components/Badge";
 import { STATUSES, getRequestsForTheme, getTheme, getThemes } from "@/lib/data";
 
 type Props = { params: Promise<{ themeId: string }> };
@@ -75,11 +75,11 @@ export default async function RequirementPage({ params }: Props) {
             <li key={r.id} className="rounded-md border border-neutral-200 bg-white p-3">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-xs text-neutral-500">{r.id}</span>
-                <Badge tone={priorityTone[r.priority]}>{r.priority}</Badge>
+                <Badge tone={channelTone[r.channel]}>{r.channel}</Badge>
               </div>
-              <p className="mt-1 text-sm text-neutral-900">{r.title}</p>
-              <p className="mt-1 text-xs text-neutral-500">
-                {r.requester} · {r.source} · {r.receivedAt}
+              <p className="mt-1.5 text-sm leading-relaxed text-neutral-800">{r.text}</p>
+              <p className="mt-1.5 text-xs text-neutral-500">
+                {r.operator} ({r.country}) · {r.date}
               </p>
             </li>
           ))}

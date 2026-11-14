@@ -1,81 +1,132 @@
-[
-  {
-    "id": "bulk-export",
-    "name": "Bulk export of reports",
-    "summary": "Customers want to export many reports at once instead of one by one.",
-    "status": "in-spec",
-    "owner": "Product",
-    "requirement": {
-      "problem": "Users who manage many projects spend a lot of time exporting reports individually, which blocks month-end reporting.",
-      "goals": [
-        "Export up to 100 reports in a single action",
-        "Support CSV and PDF formats",
-        "Notify the user when a large export is ready"
-      ],
-      "acceptanceCriteria": [
-        "User can multi-select reports from the reports list",
-        "Export runs in the background and does not block the UI",
-        "User receives an email with a download link valid for 7 days"
-      ],
-      "openQuestions": [
-        "Should exports respect per-report permissions or the exporting user's role?"
-      ]
+{
+  "notice": "FICTIONAL DEMO DATA. Themes and requirements are made up and reference the fictional requests in requests.json.",
+  "themes": [
+    {
+      "id": "guide-payouts",
+      "name": "Guide payouts",
+      "summary": "Operators need to know what each guide is owed at the end of the month.",
+      "status": "in-spec",
+      "owner": "Payments",
+      "requestIds": ["REQ-001", "REQ-006", "REQ-011", "REQ-016"],
+      "requirement": {
+        "problem": "Operators calculate guide pay in spreadsheets from tour lists, per-tour or per-guest rates and tips. It takes days every month and causes disputes with freelance guides.",
+        "goals": [
+          "Show the amount owed to each guide for a chosen period",
+          "Support per-tour, per-guest and hourly rates",
+          "Include tips and split them between guide and driver"
+        ],
+        "acceptanceCriteria": [
+          "Admin can open a payout summary per guide for any date range",
+          "Summary lists each tour, the rate applied and the total",
+          "Admin can send a guide their summary by email before they invoice"
+        ],
+        "openQuestions": [
+          "How are tips split when several staff work one departure?",
+          "Do we need to export payouts to accounting software in v1?"
+        ]
+      }
+    },
+    {
+      "id": "bokun-sync",
+      "name": "Bokun sync reliability",
+      "summary": "Availability and bookings from Bokun arrive late, duplicated or out of sync.",
+      "status": "triaged",
+      "owner": "Integrations",
+      "requestIds": ["REQ-002", "REQ-007", "REQ-015", "REQ-021"],
+      "requirement": {
+        "problem": "Delays, duplicates and missing product changes in the Bokun integration lead to overbookings, refunds and manual clean-up.",
+        "goals": [
+          "Keep availability in sync within minutes",
+          "Never create duplicate bookings",
+          "Pick up product changes without manual re-import"
+        ],
+        "acceptanceCriteria": [
+          "A booking made in Bokun appears within 5 minutes with the correct participant count",
+          "Re-delivered webhooks do not create a second booking",
+          "New departure times created in Bokun appear automatically"
+        ],
+        "openQuestions": ["Should operators be alerted when the sync fails?"]
+      }
+    },
+    {
+      "id": "pickup-times",
+      "name": "Pickup times",
+      "summary": "Guests and drivers need clear, per-hotel pickup times that can change.",
+      "status": "triaged",
+      "owner": "Operations",
+      "requestIds": ["REQ-004", "REQ-008", "REQ-014"],
+      "requirement": {
+        "problem": "Confirmations show only the tour start time, so guests do not know when to wait at their hotel and drivers have no pickup list.",
+        "goals": [
+          "Show the per-hotel pickup time in confirmations",
+          "Let operators shift pickup times for a whole departure",
+          "Give drivers a pickup list per vehicle"
+        ],
+        "acceptanceCriteria": [
+          "Confirmation email contains the pickup point and time",
+          "Changing a departure's pickup time notifies all guests on it",
+          "Pickup list can be printed per vehicle, sorted by time"
+        ],
+        "openQuestions": ["SMS or email for last-minute time changes?"]
+      }
+    },
+    {
+      "id": "group-bookings",
+      "name": "Group bookings",
+      "summary": "Large groups and agency allotments are entered as many single bookings.",
+      "status": "new",
+      "owner": "Bookings",
+      "requestIds": ["REQ-003", "REQ-010", "REQ-017"],
+      "requirement": {
+        "problem": "Schools, cruise groups and agencies book 10–50 seats at once, but each seat is handled as a separate booking with manual discounts.",
+        "goals": [
+          "Create one booking for a whole group",
+          "Hold seats for agencies and release unused ones",
+          "Apply group discounts automatically"
+        ],
+        "acceptanceCriteria": [
+          "Headcount of a group booking can be edited in one place",
+          "Held seats are released automatically at a set number of days before departure"
+        ],
+        "openQuestions": ["Do held seats count as sold for OTA availability?"]
+      }
+    },
+    {
+      "id": "vat-invoices",
+      "name": "VAT invoices",
+      "summary": "Business clients need compliant VAT invoices with their company details.",
+      "status": "new",
+      "owner": "Finance",
+      "requestIds": ["REQ-005", "REQ-013", "REQ-020"],
+      "requirement": {
+        "problem": "Operators recreate invoices manually because the system cannot add the client's company details or show different VAT rates per line.",
+        "goals": [
+          "Add company name and VAT ID to invoices",
+          "Show VAT rates per line item"
+        ],
+        "acceptanceCriteria": [
+          "Customer can enter company details at checkout",
+          "Invoice PDF lists net, VAT rate and gross per line"
+        ],
+        "openQuestions": ["Which countries' invoice rules do we support first?"]
+      }
+    },
+    {
+      "id": "waitlist",
+      "name": "Waitlist",
+      "summary": "Customers want to join sold-out tours if a spot frees up.",
+      "status": "new",
+      "owner": "Bookings",
+      "requestIds": ["REQ-009", "REQ-018"],
+      "requirement": {
+        "problem": "When tours sell out, operators collect interested customers by email and contact them by hand after cancellations.",
+        "goals": ["Let customers join a waitlist for sold-out departures"],
+        "acceptanceCriteria": [
+          "Sold-out departure offers a waitlist sign-up",
+          "On cancellation, the first person on the waitlist is notified automatically"
+        ],
+        "openQuestions": ["Should the freed spot be held for the notified person, and for how long?"]
+      }
     }
-  },
-  {
-    "id": "sso-login",
-    "name": "Single sign-on",
-    "summary": "Enterprise prospects require SAML/OIDC login before signing.",
-    "status": "triaged",
-    "owner": "Platform",
-    "requirement": {
-      "problem": "Enterprise customers cannot onboard without SSO, which blocks several deals in the pipeline.",
-      "goals": [
-        "Support SAML 2.0 and OIDC identity providers",
-        "Allow admins to enforce SSO for their workspace"
-      ],
-      "acceptanceCriteria": [
-        "Admin can configure an IdP from workspace settings",
-        "Users from an SSO-enforced workspace cannot log in with a password"
-      ],
-      "openQuestions": [
-        "Do we need SCIM provisioning in the first version?",
-        "Which plans include SSO?"
-      ]
-    }
-  },
-  {
-    "id": "mobile-notifications",
-    "name": "Mobile push notifications",
-    "summary": "Field users miss updates because notifications only arrive by email.",
-    "status": "new",
-    "owner": "Mobile",
-    "requirement": {
-      "problem": "Users working away from a desk see important updates hours late.",
-      "goals": ["Deliver push notifications for mentions and assignments"],
-      "acceptanceCriteria": [
-        "User can opt in and out of push notifications per category"
-      ],
-      "openQuestions": ["Is a quiet-hours setting needed for v1?"]
-    }
-  },
-  {
-    "id": "audit-log",
-    "name": "Audit log",
-    "summary": "Admins need a record of who changed what and when.",
-    "status": "done",
-    "owner": "Platform",
-    "requirement": {
-      "problem": "Compliance reviews require evidence of changes to permissions and settings.",
-      "goals": [
-        "Record permission and settings changes",
-        "Make the log searchable and exportable"
-      ],
-      "acceptanceCriteria": [
-        "Every permission change produces an audit entry with actor, target and timestamp",
-        "Admins can filter the log by user and date range"
-      ],
-      "openQuestions": []
-    }
-  }
-]
+  ]
+}

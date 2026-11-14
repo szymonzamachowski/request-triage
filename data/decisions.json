@@ -4,14 +4,14 @@
     "date": "2026-11-14",
     "title": "No database – data lives in JSON files",
     "context": "The app is a prototype for exploring the triage workflow; persistence and multi-user editing are out of scope.",
-    "decision": "Store requests, themes and decisions in /data/*.json and read them at build/request time. Revisit once editing from the UI is needed."
+    "decision": "Store requests, themes and decisions in /data/*.json and read them at build time. Revisit once editing from the UI is needed."
   },
   {
     "id": "D-002",
     "date": "2026-11-14",
-    "title": "Requests are grouped into themes",
-    "context": "Many incoming requests describe the same underlying need in different words.",
-    "decision": "Each request points to at most one theme (themeId). A theme owns the requirement document and moves across the board."
+    "title": "Themes reference requests, not the other way round",
+    "context": "Many incoming requests describe the same underlying need in different words, and raw requests should stay exactly as the client sent them.",
+    "decision": "Each theme lists its requestIds. Requests not listed by any theme are shown as untriaged. A theme owns the requirement doc and moves across the board."
   },
   {
     "id": "D-003",
@@ -19,5 +19,12 @@
     "title": "Next.js App Router with Server Components",
     "context": "Pages are read-only views over static data.",
     "decision": "Render pages as Server Components; only the navigation is a Client Component (for active-link state)."
+  },
+  {
+    "id": "D-004",
+    "date": "2026-11-14",
+    "title": "Fictional tour-operator demo data",
+    "context": "Real client requests cannot be published in a public repository.",
+    "decision": "Use 22 made-up requests from 6 fictional tour operators, marked as fictional in the JSON files and in a banner on every page."
   }
 ]

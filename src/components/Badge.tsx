@@ -2,7 +2,7 @@ const tones = {
   neutral: "bg-neutral-100 text-neutral-600",
   blue: "bg-blue-50 text-blue-700",
   amber: "bg-amber-50 text-amber-700",
-  red: "bg-red-50 text-red-700",
+  violet: "bg-violet-50 text-violet-700",
   green: "bg-emerald-50 text-emerald-700",
 } as const;
 
@@ -16,5 +16,5 @@ export default function Badge({ children, tone = "neutral" }: { children: React.
   );
 }
 
-export const priorityTone: Record<string, Tone> = { low: "neutral", medium: "amber", high: "red" };
+export const channelTone: Record<string, Tone> = { call: "violet", ticket: "blue", email: "neutral" };
 export const statusTone: Record<string, Tone> = { new: "neutral", triaged: "blue", "in-spec": "amber", done: "green" };
