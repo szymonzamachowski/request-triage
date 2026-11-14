@@ -2,43 +2,36 @@
   {
     "id": "D-001",
     "date": "2026-11-14",
-    "title": "No database – data lives in JSON files",
-    "context": "The app is a prototype for exploring the triage workflow; persistence and multi-user editing are out of scope.",
-    "decision": "Store requests, triage output, requirements and decisions in /data/*.json and read them at build time. Revisit once editing from the UI is needed."
+    "title": "No database: data lives in JSON and Markdown files",
+    "context": "This is a prototype of the triage workflow. Saving changes and letting several people edit are out of scope.",
+    "decision": "Requests, triage output, requirements and decisions are files in /data, read at build time. Every page is prerendered as static HTML. We revisit this when the UI needs editing."
   },
   {
     "id": "D-002",
     "date": "2026-11-14",
-    "title": "triage.json is the source of truth for themes",
-    "context": "Many incoming requests describe the same need in different words, and raw requests should stay exactly as the client sent them.",
-    "decision": "Themes, their requestIds and scores live in triage.json. requirements.json only holds the requirement doc per theme. Requests not in any theme are listed as unclustered."
+    "title": "Group requests by meaning with an LLM, and keep the result as a file",
+    "context": "Clients describe the same need in different words, so grouping by keywords misses most of the overlap.",
+    "decision": "An LLM grouped the requests into themes and rated pain and effort, using the prompt in data/PROMPT.md. The result is saved in data/triage.json, which is the single source of truth for themes. Raw requests are never edited."
   },
   {
     "id": "D-003",
     "date": "2026-11-14",
-    "title": "Next.js App Router with Server Components",
-    "context": "Pages are read-only views over static data.",
-    "decision": "Render pages as Server Components and prerender them statically. Only the nav, the board (card selection) and the requests table (sorting) are Client Components."
+    "title": "Rank by a transparent score, not by request count",
+    "context": "A loud operator sending many tickets shouldn't outrank a need shared by many operators, and one very large operator shouldn't dominate either.",
+    "decision": "score = operatorsAsking × pain × log10(totalBookings) ÷ effortWeight (S=1, M=2, L=3). Each operator is counted once per theme. log10 dampens the effect of operator size. Arithmetic is done by code, judgments by the model."
   },
   {
     "id": "D-004",
     "date": "2026-11-14",
-    "title": "Fictional tour-operator demo data",
-    "context": "Real client requests cannot be published in a public repository.",
-    "decision": "Use 22 made-up requests from 6 fictional tour operators, marked as fictional in the JSON files and in a banner on every page."
+    "title": "Board columns are derived from the ranking",
+    "context": "A status workflow (New → Done) doesn't say what to build first.",
+    "decision": "#1 goes to Now, #2–4 go to Next, and the rest plus unclustered requests go to Inbox. Columns are computed from triage.json, not stored."
   },
   {
     "id": "D-005",
     "date": "2026-11-14",
-    "title": "Board columns follow the score ranking",
-    "context": "A status workflow (New → Done) says nothing about what to build first.",
-    "decision": "Rank themes by score: #1 goes to Now, #2–4 to Next, the rest and unclustered requests to Inbox. Columns are derived, not stored."
-  },
-  {
-    "id": "D-006",
-    "date": "2026-11-14",
     "title": "Full requirement docs are Markdown files",
-    "context": "A requirement doc is long-form text (quotes, Given/When/Then, scope) that people review and edit as text, which is awkward in JSON.",
-    "decision": "Write full docs to data/requirements/<themeId>.md and render them on /requirement/[themeId] at build time. Themes without a doc fall back to the short notes in requirements.json."
+    "context": "A requirement doc is long text (quotes, scope, Given/When/Then) that people review and edit as text.",
+    "decision": "The top theme has a full doc in data/requirements/<themeId>.md, rendered on /requirement/[themeId]. The other themes fall back to the short notes in requirements.json."
   }
 ]
