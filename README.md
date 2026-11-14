@@ -77,7 +77,7 @@ Made by Szymon as manual overrides on top of the score. The formula and the data
 1. **No database. Data lives in JSON and Markdown files.** This is a prototype of the workflow. Everything in `/data` is read at build time and every page is prerendered as static HTML.
 2. **Requests are grouped by meaning with an LLM, and the result is kept as a file.** Clients describe the same need in different words, so keyword matching misses the overlap. `triage.json` is the single source of truth, and raw requests are never edited.
 3. **Ranking uses a transparent score, not request count.** Each operator counts once per theme, so a loud client can't outrank a need shared by many. `log10` keeps one very large operator from dominating. The model makes the judgments and code does the arithmetic.
-4. **Board columns are derived from the ranking.** A status workflow (New → Done) doesn't say what to build first. #1 goes to Now, #2–4 to Next, the rest to Inbox.
+4. **Board columns are derived from the ranking.** A status workflow (New → Done) doesn't say what to build first. Columns follow the ranking (#1 Now, #2–4 Next, rest Inbox), unless a theme has a manual override – then it goes to its override column first.
 5. **Full requirement docs are Markdown files.** They are long text that people review and edit as text. They are rendered on `/requirement/[themeId]`.
 
 ## Limitations
@@ -100,3 +100,15 @@ npm install
 npm run dev      # http://localhost:3000
 npm run build
 ```
+
+### Demo video
+
+`npm run video` builds a narrated demo of the live site and writes it to `video/out/demo.mp4` (not committed). It needs macOS, because the narration comes from `say -v Daniel`. ffmpeg comes from the `ffmpeg-static` package.
+
+1. Scenes, actions and narration are defined in `video/scenes.json`.
+2. Each scene's narration is turned into audio and its exact duration is measured.
+3. Playwright records Chromium at 1920×1080, with smooth scrolling and a visible cursor. Each scene lasts its audio length + 0.6 s.
+4. Captions are generated as an SRT file.
+5. ffmpeg mixes the audio, burns in the captions and renders the MP4.
+
+Set `VIDEO_BASE_URL=http://localhost:3000` to record a local build instead of the live site.

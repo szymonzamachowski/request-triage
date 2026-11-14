@@ -52,7 +52,7 @@
       "date": "2026-11-14",
       "title": "Board columns are derived from the ranking",
       "context": "A status workflow (New → Done) doesn't say what to build first.",
-      "decision": "#1 goes to Now, #2–4 go to Next, and the rest plus unclustered requests go to Inbox. Columns are computed from triage.json, not stored."
+      "decision": "Columns follow the ranking (#1 Now, #2–4 Next, rest Inbox), unless a theme has a manual override – then it goes to its override column first."
     },
     {
       "id": "D-005",

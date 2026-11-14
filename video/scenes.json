@@ -1,0 +1,290 @@
+{
+  "baseUrl": "https://request-triage.vercel.app",
+  "voice": "Ava (Premium)",
+  "scenePadding": 0.6,
+  "scenes": [
+    {
+      "id": "intro",
+      "url": "/",
+      "screen": "Board with the fictional-data banner.",
+      "actions": [
+        {
+          "type": "navigate",
+          "url": "/"
+        },
+        {
+          "type": "pause",
+          "ms": 2300
+        },
+        {
+          "type": "hover",
+          "text": "Themes ranked by score",
+          "ms": 5600
+        },
+        {
+          "type": "hover",
+          "text": "Fictional demo data.",
+          "ms": 5200
+        }
+      ],
+      "narration": "Hi, I'm Szymon. This is Request Triage, a small tool that turns scattered client requests into a ranked list of what to build next. All the data here is fictional: six made-up tour operators and twenty-two of their requests."
+    },
+    {
+      "id": "board",
+      "url": "/",
+      "screen": "Board columns Inbox, Next and Now. Click the VAT invoices card to show its requests.",
+      "actions": [
+        {
+          "type": "hover",
+          "text": "Everything else, incl. one-off requests",
+          "ms": 1100
+        },
+        {
+          "type": "hover",
+          "text": "Up to 3 themes, next by score",
+          "ms": 1100
+        },
+        {
+          "type": "hover",
+          "text": "1 theme – manual override or top score",
+          "ms": 1300
+        },
+        {
+          "type": "hover",
+          "text": "Group bookings",
+          "ms": 5300
+        },
+        {
+          "type": "hover",
+          "text": "Pickup times",
+          "ms": 4300
+        },
+        {
+          "type": "click",
+          "text": "VAT invoices"
+        },
+        {
+          "type": "pause",
+          "ms": 900
+        },
+        {
+          "type": "hover",
+          "text": "Requests (3)",
+          "ms": 2000
+        }
+      ],
+      "narration": "The board has three columns: Inbox, Next and Now. Each card is a theme, a group of requests that mean the same thing, even when clients use different words. It shows who asked, where they are, a pain and effort rating, and a score. Click a card to see the requests behind it."
+    },
+    {
+      "id": "override",
+      "url": "/",
+      "screen": "Click the Bokun sync card in Now: manual override badge, reason and first step.",
+      "actions": [
+        {
+          "type": "click",
+          "text": "Bokun sync reliability"
+        },
+        {
+          "type": "hover",
+          "text": "Manual override",
+          "ms": 3200
+        },
+        {
+          "type": "hover",
+          "text": "Overbookings, refunds and duplicate bookings",
+          "ms": 6000
+        },
+        {
+          "type": "hover",
+          "text": "First step:",
+          "ms": 2700
+        },
+        {
+          "type": "hover",
+          "text": "Guide payouts",
+          "ms": 2500
+        }
+      ],
+      "narration": "Bokun sync is only second by score, but I moved it to Now with a manual override. Overbookings and duplicate bookings cost operators money today, and the score doesn't capture that risk. The first step is a quick fix this week. Guide payouts, number one by score, is next up."
+    },
+    {
+      "id": "requests",
+      "url": "/requests",
+      "screen": "Sortable requests table; sort by size, scroll, show routed-to-support and backlog labels.",
+      "actions": [
+        {
+          "type": "navigate",
+          "url": "/requests"
+        },
+        {
+          "type": "pause",
+          "ms": 600
+        },
+        {
+          "type": "click",
+          "text": "Bookings/mo"
+        },
+        {
+          "type": "pause",
+          "ms": 3000
+        },
+        {
+          "type": "hover",
+          "text": "Routed to support – not a product need",
+          "ms": 3800
+        },
+        {
+          "type": "scroll",
+          "to": "bottom",
+          "ms": 2200
+        },
+        {
+          "type": "hover",
+          "text": "Backlog · low priority",
+          "ms": 2000
+        }
+      ],
+      "narration": "Every request is kept in the client's own words, in a sortable table. Requests that aren't product needs are labelled. Account recovery is routed to support, and Japanese localisation goes to the backlog, as a signal to watch."
+    },
+    {
+      "id": "requirement",
+      "url": "/requirement/guide-payouts",
+      "screen": "Guide payouts requirement doc, scrolled from quotes to the success metric.",
+      "actions": [
+        {
+          "type": "navigate",
+          "url": "/requirement/guide-payouts"
+        },
+        {
+          "type": "pause",
+          "ms": 800
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "Problem",
+            "exact": true
+          },
+          "ms": 1500
+        },
+        {
+          "type": "pause",
+          "ms": 1200
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "Who is affected",
+            "exact": true
+          },
+          "ms": 1500
+        },
+        {
+          "type": "pause",
+          "ms": 600
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "Scope",
+            "exact": true
+          },
+          "ms": 1300
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "Acceptance criteria",
+            "exact": true
+          },
+          "ms": 1400
+        },
+        {
+          "type": "pause",
+          "ms": 400
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "Definition of Done",
+            "exact": true
+          },
+          "ms": 2000
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "Success metric (30 days after launch)",
+            "exact": true
+          },
+          "ms": 1600
+        }
+      ],
+      "narration": "Guide payouts already has a full spec. It starts with quotes from clients, then covers who is affected, the scope, Given, When, Then acceptance criteria, a definition of done, and a success metric to check thirty days after launch."
+    },
+    {
+      "id": "about",
+      "url": "/about",
+      "screen": "About page: the prompt, the decisions log and the footer.",
+      "actions": [
+        {
+          "type": "navigate",
+          "url": "/about"
+        },
+        {
+          "type": "pause",
+          "ms": 500
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "The prompt",
+            "exact": true
+          },
+          "ms": 2000
+        },
+        {
+          "type": "pause",
+          "ms": 700
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "My product decisions",
+            "exact": true
+          },
+          "ms": 2000
+        },
+        {
+          "type": "pause",
+          "ms": 500
+        },
+        {
+          "type": "scroll",
+          "to": {
+            "text": "Technical decisions (prototype)",
+            "exact": true
+          },
+          "ms": 1500
+        },
+        {
+          "type": "scroll",
+          "to": "bottom",
+          "ms": 2200
+        },
+        {
+          "type": "hover",
+          "text": "Szymon Zamachowski",
+          "ms": 2200
+        },
+        {
+          "type": "hover",
+          "text": "LinkedIn",
+          "ms": 1600
+        }
+      ],
+      "narration": "The about page shows the exact prompt used for triage, and a decisions log, split into my product decisions and the technical ones. The data is made up, but the workflow is real. Built with Claude Code in one evening. Thanks for watching."
+    }
+  ],
+  "rate": 175
+}
